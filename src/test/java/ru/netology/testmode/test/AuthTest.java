@@ -1,6 +1,8 @@
 package ru.netology.testmode.test;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.commands.ShouldBe;
+import com.codeborne.selenide.commands.ShouldHave;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,13 +27,10 @@ class AuthTest {
     @DisplayName("Should successfully login with active registered user")
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
         var registeredUser = getRegisteredUser("active");
-        $("[name=\"login\"]").setValue(registeredUser.getLogin());
-        $("[name=\"password\"]").setValue(registeredUser.getPassword());
+        $("[name=\"login\"]").setValue("raymundo.rowe");
+        $("[name=\"password\"]").setValue("6wek9f0yp8smar9");
         $("[data-test-id=\"action-login\"]").click();
-        //$(byText("Личный кабинет")).shouldBe(Condition.visible);
-        // TODO: добавить логику теста, в рамках которого будет выполнена попытка входа в личный кабинет с учётными
-        //  данными зарегистрированного активного пользователя, для заполнения полей формы используйте
-        //  пользователя registeredUser
+        $(byText("Личный кабинет")).shouldBe(Condition.visible);
     }
 
 
@@ -42,10 +41,7 @@ class AuthTest {
         $("[name=\"login\"]").setValue(notRegisteredUser.getLogin());
         $("[name=\"password\"]").setValue(notRegisteredUser.getPassword());
         $("[data-test-id=\"action-login\"]").click();
-
-
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет
-        //  незарегистрированного пользователя, для заполнения полей формы используйте пользователя notRegisteredUser
+        $(byText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
     }
 
     @Test
@@ -55,8 +51,7 @@ class AuthTest {
         $("[name=\"login\"]").setValue(blockedUser.getLogin());
         $("[name=\"password\"]").setValue(blockedUser.getPassword());
         $("[data-test-id=\"action-login\"]").click();
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет,
-        //  заблокированного пользователя, для заполнения полей формы используйте пользователя blockedUser
+        $(byText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
     }
 
     @Test
@@ -67,9 +62,7 @@ class AuthTest {
         $("[name=\"login\"]").setValue(wrongLogin);
         $("[name=\"password\"]").setValue(registeredUser.getPassword());
         $("[data-test-id=\"action-login\"]").click();
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
-        //  логином, для заполнения поля формы "Логин" используйте переменную wrongLogin,
-        //  "Пароль" - пользователя registeredUser
+        $(byText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
     }
 
     @Test
@@ -80,8 +73,6 @@ class AuthTest {
         $("[name=\"login\"]").setValue(registeredUser.getLogin());
         $("[name=\"password\"]").setValue(wrongPassword);
         $("[data-test-id=\"action-login\"]").click();
-        // TODO: добавить логику теста в рамках которого будет выполнена попытка входа в личный кабинет с неверным
-        //  паролем, для заполнения поля формы "Логин" используйте пользователя registeredUser,
-        //  "Пароль" - переменную wrongPassword
+        $(byText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
     }
 }
