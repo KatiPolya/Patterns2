@@ -51,7 +51,7 @@ class AuthTest {
         $("[name=\"login\"]").setValue(blockedUser.getLogin());
         $("[name=\"password\"]").setValue(blockedUser.getPassword());
         $("[data-test-id=\"action-login\"]").click();
-        $(byText("Неверно указан логин или пароль")).shouldBe(Condition.visible);
+        $(byText("Пользователь заблокирован")).shouldBe(Condition.visible);
     }
 
     @Test

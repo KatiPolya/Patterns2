@@ -58,7 +58,7 @@ public class DataGenerator {
 
         public static RegistrationDto getRegisteredUser(String status) {
             RegistrationDto registeredUser = getUser(status);
-            sendRequest(getUser(status));
+            sendRequest(registeredUser);
             return registeredUser;
         }
     }
